@@ -11,7 +11,7 @@ OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 OPENROUTER_REFERER = os.getenv("OPENROUTER_REFERER")
 OPENROUTER_TITLE   = os.getenv("OPENROUTER_TITLE")
 
-ELEVENLABS_API_KEY = os.getenv("ELEVENLABS_API_KEY")
+AZURE_SPEECH_KEY = os.getenv("AZURE_SPEECH_KEY")
 AGORA_CREDENTIALS  = os.getenv("AGORA_CREDENTIALS")
 
 AGORA_APPID        = os.getenv("AGORA_APP_ID")
@@ -46,11 +46,11 @@ data = {
         "idle_timeout": 120,
 
         # ---------------------------
-        #        CUSTOM LLM
+        #        CUSTOM LLM (GROQ)
         # ---------------------------
         "llm": {
-            "url": "https://openrouter.ai/api/v1/chat/completions",
-            "api_key": merged_openrouter_key,
+            "url": "https://api.groq.com/openai/v1/chat/completions",
+            "api_key": os.getenv("GROQ_API_KEY"),
             "system_messages": [
                 {
                     "role": "system",
@@ -61,27 +61,29 @@ data = {
             "failure_message": "Sorry, I don't know how to answer this question.",
             "max_history": 10,
             "params": {
-                "model": "qwen/qwen3-coder:free",
+                "model": "openai/gpt-oss-120b",
                 "stream": True
             }
         },
 
         # ---------------------------
-        #        ASR
+        #             ASR
         # ---------------------------
         "asr": {
             "language": "en-US"
         },
 
         # ---------------------------
-        #        TTS
+        #             TTS
         # ---------------------------
         "tts": {
-            "vendor": "elevenlabs",
+            "vendor": "microsoft",
             "params": {
-                "key": ELEVENLABS_API_KEY,
-                "model_id": "eleven_flash_v2_5",
-                "voice_id": "pNInz6obpgDQGcFmaJgB",
+                "key": AZURE_SPEECH_KEY,
+                "region": "centralindia",
+                "voice_name": "en-US-AndrewMultilingualNeural",
+                "speed": 1.0,
+                "volume": 70,
                 "sample_rate": 24000
             }
         }
