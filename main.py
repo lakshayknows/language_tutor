@@ -2,6 +2,10 @@ import requests
 import json
 import os
 from dotenv import load_dotenv
+from prompts.system import system_prompt
+from event_handler import EventHandler
+
+handler = EventHandler()
 
 # Load environment variables
 load_dotenv()
@@ -54,7 +58,7 @@ data = {
             "system_messages": [
                 {
                     "role": "system",
-                    "content": "You are a helpful chatbot."
+                    "content": system_prompt
                 }
             ],
             "greeting_message": "Hello, how can I help you?",
